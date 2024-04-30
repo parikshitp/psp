@@ -1,0 +1,21 @@
+version: '3'
+services:
+  psp-service:
+    build:
+      context: ./PSP/
+      dockerfile: Dockerfile
+    image: psp-service-image:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - acquirer-service
+      
+  acquirer-service:
+    build:
+      context: ./ACQUIRER/
+      dockerfile: Dockerfile
+    image: acquirer-service-image:latest
+    ports:
+      - "8585:8585"
+      
+      

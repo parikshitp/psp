@@ -1,0 +1,9 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: Acquirer
+        
+  messages:
+    basename: i18n/messages
