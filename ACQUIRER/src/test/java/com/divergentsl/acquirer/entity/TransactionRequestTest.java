@@ -13,15 +13,8 @@ class TransactionRequestTest {
 
 	@Test
 	void testEquals_SameObject() {
-		
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request = new TransactionRequest("123", card, "STATUS");
 
@@ -31,15 +24,8 @@ class TransactionRequestTest {
 
 	@Test
 	void testEquals_NullObject() {
-		
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request = new TransactionRequest("123", card, "STATUS");
 
@@ -49,14 +35,7 @@ class TransactionRequestTest {
 
 	@Test
 	void testEquals_DifferentClass() {
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request = new TransactionRequest("123", card, "STATUS");
 
@@ -66,15 +45,8 @@ class TransactionRequestTest {
 
 	@Test
 	void testEquals_SameValues() {
-		
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request1 = new TransactionRequest("123", card, "STATUS");
 		TransactionRequest request2 = new TransactionRequest("123", card, "STATUS");
@@ -85,14 +57,7 @@ class TransactionRequestTest {
 
 	@Test
 	void testEquals_DifferentValues() {
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request1 = new TransactionRequest("123", card, "STATUS1");
 		TransactionRequest request2 = new TransactionRequest("456", new CardDetails(), "STATUS2");
@@ -103,14 +68,7 @@ class TransactionRequestTest {
 
 	@Test
 	void testHashCode() {
-		CardDetails card = new CardDetails(
-			    "378734493671000",
-			    "12/25",
-			    "123",
-			    100.00,
-			    "USD",
-			    "MERCHANT123"
-			);
+		CardDetails card = new CardDetails("378734493671000", "12/25", "123", 100.00, "USD", "MERCHANT123");
 		// Arrange
 		TransactionRequest request1 = new TransactionRequest("123", card, "STATUS");
 		TransactionRequest request2 = new TransactionRequest("123", card, "STATUS");

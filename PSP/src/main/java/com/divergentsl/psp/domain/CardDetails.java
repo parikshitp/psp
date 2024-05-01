@@ -22,24 +22,24 @@ public class CardDetails {
 
 	@ValidCardNumber
 	@NotBlank(message = "Card Number can't be null or blank")
-    private String cardNumber;
+	private String cardNumber;
 
 	@ValidExpiryDate
-    @NotBlank(message = "Expiry Date can't be null or blank")
-    private String expiryDate; // Assuming format "MM/YY"
+	@NotBlank(message = "Expiry Date can't be null or blank")
+	private String expiryDate; // Assuming format "MM/YY"
 
-    @NotBlank(message = "CVV can't be null or blank")
-    private String cvv;
+	@NotBlank(message = "CVV can't be null or blank")
+	private String cvv;
 
-    @NotNull(message = "Amount can't be null")
-    @Min(value = 1, message = "Amount must be greater than or equal to 1")
-    private Double amount;
+	@NotNull(message = "Amount can't be null")
+	@Min(value = 1, message = "Amount must be greater than or equal to 1")
+	private Double amount;
 
-    @NotBlank(message = "Currency can't be null or blank")
-    private String currency;
+	@NotBlank(message = "Currency can't be null or blank")
+	private String currency;
 
-    @NotBlank(message = "Merchant ID can't be null or blank")
-    private String merchantId;
+	@NotBlank(message = "Merchant ID can't be null or blank")
+	private String merchantId;
 
 	@Override
 	public String toString() {

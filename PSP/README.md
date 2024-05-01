@@ -17,15 +17,15 @@
 ## Controllers 
 The PSP application includes the following controller:
 
-**PspController** 
+### PspController
 - **Endpoint:** `/api/v1/process_payment` 
 - **Description:** This controller handles payment processing requests. It receives transaction details as input and returns a response containing the transaction status and message. 
 
 ## Services 
 The PSP application includes the following service:
 
-**PspService** 
-- **Description:** This service contains the business logic for processing payments. It validates card details, generates transaction IDs, updates transaction records, and interacts with external systems for transaction processing. 
+### PspService
+- **Description:** This service contains the business logic for processing payments. It validates card details, generates transaction IDs, calls the acquirer, updates transaction records, and interacts with external systems for transaction processing. 
 
 #### TransactionUtil Class
 - **Method:** `isValidCardLuhansAlgorithm(String cardNumber)`
@@ -44,21 +44,20 @@ The PSP application includes the following service:
     This method implements Luhn's algorithm to validate credit card numbers. Luhn's algorithm works by summing up the digits of the card number in a specific way and checking if the resulting sum is divisible by 10. If it is, the card number is considered valid. Otherwise, it's invalid. The provided comments demonstrate examples of valid and invalid card numbers based on their formats and lengths. The method cleans the input card number by removing any non-digit characters, checks if the length of the cleaned number is within the valid range (13-19 digits), ensures that the card number contains only digits, and then performs the Luhn's algorithm calculation. Finally, it returns `true` if the calculated sum is divisible by 10, indicating a valid card number, and `false` otherwise.
 
 #### Sample Inputs For Card Validation:
-- '    1234567890123           VALID
-- '    1234-5678-9012-3456     VALID
-- '    1234 5678 9012 3456     VALID
-- '    12345678901234567    VALID
-- '    12345                    INVALID
-- '    1234                     INVALID
-- '    123456789012345678901   INVALID
-- '    1234567890abcd          INVALID
-- '    12345678ee13456789     INVALID
+- '    378282246310005     VALID
+- '    5610591081018250    VALID
+- '    378734493671000     VALID
+- '    3787344936710005    INVALID
+- '    4111111111111112    INVALID
+- '    5105105105105101    INVALID
+- '    378282246310006     INVALID
+- '    abcdefghijabcdefgh  INVALID
 
 
 ## Repositories 
 The PSP application includes the following repository:
 
-**TransactionRepo** 
+### TransactionRepo
 - **Description:** This repository manages transaction records in memory. It provides methods for saving and retrieving transaction details. 
 
 ## How to Run PSP Application
@@ -86,16 +85,16 @@ The PSP application includes the following repository:
      docker-compose up --build
      ```
 
-### Usage
+## Usage
 Once the applications and Docker setup are completed, follow these steps to process payments:
 
 1. **Send Payment Request:**
-   - Make a POST request to the `/api/v1/psp` endpoint at `http://localhost:8080`.
+   - Make a POST request to the `/api/v1/process_payment` endpoint at `http://localhost:8080`.
    - Include the transaction details in the request body, for example:
      ```json
      {
        "cardDetails": {
-         "cardNumber": "12345678901234523",
+         "cardNumber": "378734493671000",
          "expiryDate": "12/25",
          "cvv": "123",
          "amount": 100.00,
@@ -128,16 +127,24 @@ Once the applications and Docker setup are completed, follow these steps to proc
    - **Wrong date format MM/DD:**    
      - **Expected Response (BAD_REQUEST):**
        ```json
-      {
-		    "status": "BAD_REQUEST",
-		    "timestamp": "30-04-2024 12:46:28",
-		    "message": "JSON parse error: error.invalid.expiry.date",
-		    "debugMessage": "JSON parse error: error.invalid.expiry.date",
-		    "subErrors": null
-		}
+      field": [
+                {
+                    "codes": [
+                        "transactionRequest.cardDetails.expiryDate",
+                        "cardDetails.expiryDate"
+                    ],
+                    "arguments": null,
+                    "defaultMessage": "cardDetails.expiryDate",
+                    "code": "cardDetails.expiryDate"
+                }
+            ],
+            "code": "ValidExpiryDate",
+            "message": "Invalid Expiry Date"
+        }
+        ]
        ```
 
-### Contributing
+## Contributing
 Contributions to the PSP application are welcome! Follow these guidelines:
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
@@ -145,5 +152,5 @@ Contributions to the PSP application are welcome! Follow these guidelines:
 4. Write tests to ensure code quality.
 5. Submit a pull request with a clear description of your changes.
 
-### License
+## License
 Divergent Software Labs Pvt. Ltd.

@@ -13,10 +13,12 @@ import jakarta.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = CardNumberValidator.class)
-@Target({ElementType.FIELD})
+@Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidCardNumber {
-    String message() default "Invalid Card Number";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	String message() default "Invalid Card Number";
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

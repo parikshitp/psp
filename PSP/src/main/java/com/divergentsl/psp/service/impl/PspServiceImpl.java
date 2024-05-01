@@ -1,8 +1,5 @@
 package com.divergentsl.psp.service.impl;
 
-import java.util.Locale;
-
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.divergentsl.psp.constants.TransactionStatus;
@@ -22,12 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 public class PspServiceImpl implements PspService {
 
 	private final RestClient restClient;
-	private final MessageSource messageSource;
 	private final TransactionRepo transactionRepo;
 
-	public PspServiceImpl(RestClient restClient, MessageSource messageSource, TransactionRepo transactionRepo) {
+	public PspServiceImpl(RestClient restClient, TransactionRepo transactionRepo) {
 		this.restClient = restClient;
-		this.messageSource = messageSource;
 		this.transactionRepo = transactionRepo;
 	}
 
@@ -53,12 +48,11 @@ public class PspServiceImpl implements PspService {
 				cardDetails.getCardNumber());
 
 		transactionRequest.setTransactionId(transactionId);
-		
 
 		transactionResponse = updateTransactionRecord(transactionRequest, transactionId);
 
 		log.info("Inside Psp paymentService method processPayment: {}", transactionResponse);
-		
+
 		transactionResponse.setTransactionId(transactionId);
 
 		return transactionResponse;

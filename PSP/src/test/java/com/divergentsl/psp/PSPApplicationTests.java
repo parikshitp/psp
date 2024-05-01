@@ -11,11 +11,11 @@ import com.divergentsl.psp.controller.PspController;
 @SpringBootTest
 class PSPApplicationTests {
 
-    @Autowired
-    private PspController pspController;
+	@Autowired
+	private PspController pspController;
 
-    @Test
-    void contextLoads() {
-        assertNotNull(pspController);
-    }
+	@Test
+	void contextLoads() {
+		assertNotNull(pspController);
+	}
 }

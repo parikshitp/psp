@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
 	private MessageSource messageSource;
 
-	public GlobalExceptionHandler(MessageSource messageSource) { 
+	public GlobalExceptionHandler(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
 
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(GenericException.class)
 	protected ResponseEntity<ApiError> handleGenericException(Locale locale, GenericException ex) {
-		log.error("Inside Global Excepiton Handler handleGenericException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleGenericException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST,
 				messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale), ex), HttpStatus.BAD_REQUEST);
 	}
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(EntityNotFoundException.class)
 	protected ResponseEntity<ApiError> handleEntityNotFoundException(Locale locale, EntityNotFoundException ex) {
-		log.error("Inside Global Excepiton Handler handleEntityNotFoundException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleEntityNotFoundException method: {}", ex);
 		return new ResponseEntity<>(
 				new ApiError(HttpStatus.NOT_FOUND, messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale), ex),
 				HttpStatus.EXPECTATION_FAILED);
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(NoResourceFoundException.class)
 	public ResponseEntity<ApiError> handleNoResourceFoundException(NoResourceFoundException ex) {
-		log.error("Inside Global Excepiton Handler handleNoResourceFoundException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleNoResourceFoundException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex), HttpStatus.NOT_FOUND);
 	}
 
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-		log.error("Inside Global Excepiton Handler handleHttpMessageNotReadableException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleHttpMessageNotReadableException method: {}", ex);
 		BindingResult bindingResult = ex.getBindingResult();
 		List<ApiSubError> subErrors = new ArrayList<>();
 		bindingResult.getAllErrors().forEach(oe -> subErrors.add(new ApiValidationError<Object[]>(oe.getObjectName(),
@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ApiError> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-		log.error("Inside Global Excepiton Handler handleHttpMessageNotReadableException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleHttpMessageNotReadableException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex), HttpStatus.BAD_REQUEST);
 	}
 
@@ -112,7 +112,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	public ResponseEntity<ApiError> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
-		log.error("Inside Global Excepiton Handler handleHttpMediaTypeNotSupportedException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleHttpMediaTypeNotSupportedException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex.getMessage(), ex),
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	}
@@ -126,7 +126,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<ApiError> handleHttpRequestMethodNotSupportedException(
 			HttpRequestMethodNotSupportedException ex) {
-		log.error("Inside Global Excepiton Handler handleHttpRequestMethodNotSupportedException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleHttpRequestMethodNotSupportedException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex.getMessage(), ex),
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	}
@@ -139,7 +139,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiError> handleException(Exception ex) {
-		log.error("Inside Global Excepiton Handler handleException method: {}",ex);
+		log.error("Inside Global Excepiton Handler handleException method: {}", ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}

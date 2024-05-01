@@ -11,7 +11,7 @@ public class TransactionUtil {
 
 	public static String generateTransactionId(String merchantId, String cardNumber) {
 		String txId = UUID.randomUUID().toString();
-		log.info("Inside TransactionUtil generateTransactionId {}",txId);
+		log.info("Inside TransactionUtil generateTransactionId {}", txId);
 		return txId;
 	}
 

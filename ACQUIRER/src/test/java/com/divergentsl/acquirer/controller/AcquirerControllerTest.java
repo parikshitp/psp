@@ -25,36 +25,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest(AcquirerController.class)
 public class AcquirerControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private AcquirerService acquirerService;
+	@MockBean
+	private AcquirerService acquirerService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-    @Test
-    public void testProcessPayment() throws Exception {
-        // Prepare test data
-        TransactionRequest request = new TransactionRequest();
-        request.setTransactionId("12345");
-        // Prepare mocked service response
-        TransactionResponse response = new TransactionResponse();
-        response.setTransactionId("12345");
-        response.setStatus("SUCCESS");
-        response.setMessage("Payment processed successfully");
-        // Mock the service method
-        when(acquirerService.processPayment(any(TransactionRequest.class))).thenReturn(response);
-        // Perform the POST request and verify the response
-        mockMvc.perform(post("/api/v1/acquirer")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.transactionId").value("12345"))
-                .andExpect(jsonPath("$.status").value("SUCCESS"))
-                .andExpect(jsonPath("$.message").value("Payment processed successfully"));
-        // Verify that the service method was called with the correct argument
-        verify(acquirerService, times(1)).processPayment(any(TransactionRequest.class));
-    }
+	@Test
+	public void testProcessPayment() throws Exception {
+		// Prepare test data
+		TransactionRequest request = new TransactionRequest();
+		request.setTransactionId("12345");
+		// Prepare mocked service response
+		TransactionResponse response = new TransactionResponse();
+		response.setTransactionId("12345");
+		response.setStatus("SUCCESS");
+		response.setMessage("Payment processed successfully");
+		// Mock the service method
+		when(acquirerService.processPayment(any(TransactionRequest.class))).thenReturn(response);
+		// Perform the POST request and verify the response
+		mockMvc.perform(post("/api/v1/acquirer").contentType("application/json")
+				.content(objectMapper.writeValueAsString(request))).andExpect(status().isOk())
+				.andExpect(jsonPath("$.transactionId").value("12345")).andExpect(jsonPath("$.status").value("SUCCESS"))
+				.andExpect(jsonPath("$.message").value("Payment processed successfully"));
+		// Verify that the service method was called with the correct argument
+		verify(acquirerService, times(1)).processPayment(any(TransactionRequest.class));
+	}
 }

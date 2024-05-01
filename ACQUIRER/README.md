@@ -11,7 +11,7 @@
 6. [License](#license)
 
 ## Introduction 
-**Acquirer** is a payment processing application built using Spring Boot. It provides an endpoint to handle payment requests and interacts with external systems to validate card details and process transactions.
+**Acquirer** is a payment processing application built using Spring Boot. It provides an endpoint to handle payment requests to process transactions.
 
 ## Controllers 
 The Acquirer application includes the following controller:
@@ -24,7 +24,7 @@ The Acquirer application includes the following controller:
 The Acquirer application includes the following service:
 
 ### AcquirerService
-- **Description:** This service contains the business logic for processing payments. It validates card details, interacts with external systems to validate transactions, and generates responses containing transaction status and messages.
+- **Description:** This service contains the business logic for processing payments. It generates responses containing transaction status and messages.
 
 ## How to Run PSP Application
 
@@ -55,19 +55,20 @@ The Acquirer application includes the following service:
 Once the applications and Docker setup are completed, follow these steps to process payments:
 
 1. **Send Payment Request:**
-   - Make a POST request to the `/api/v1/psp` endpoint at `http://localhost:8080`.
+   - Make a POST request to the `/api/v1/process_payment` endpoint at `http://localhost:8080`.
    - Include the transaction details in the request body, for example:
      ```json
      {
-       "cardDetails": {
-         "cardNumber": "12345678901234523",
-         "expiryDate": "12/25",
-         "cvv": "123",
-         "amount": 100.00,
-         "currency": "USD",
-         "merchantId": "MERCHANT123"
-       }
-     }
+  "cardDetails": {
+    "cardNumber": "378734493671000",
+    "expiryDate": "12/25",
+    "cvv": "123",
+    "amount": 100.00,
+    "currency": "USD",
+    "merchantId": "MERCHANT123"
+  }
+}
+
      ```
 
 2. **Transaction Scenarios:**
@@ -93,13 +94,20 @@ Once the applications and Docker setup are completed, follow these steps to proc
    - **Wrong date format MM/DD:**    
      - **Expected Response (BAD_REQUEST):**
        ```json
-      {
-		    "status": "BAD_REQUEST",
-		    "timestamp": "30-04-2024 12:46:28",
-		    "message": "JSON parse error: error.invalid.expiry.date",
-		    "debugMessage": "JSON parse error: error.invalid.expiry.date",
-		    "subErrors": null
-		}
+     	 field": [
+                {
+                    "codes": [
+                        "transactionRequest.cardDetails.expiryDate",
+                        "cardDetails.expiryDate"
+                    ],
+                    "arguments": null,
+                    "defaultMessage": "cardDetails.expiryDate",
+                    "code": "cardDetails.expiryDate"
+                }
+            ],
+            "code": "ValidExpiryDate",
+            "message": "Invalid Expiry Date"
+        }
        ```
 
 ## Contributing 

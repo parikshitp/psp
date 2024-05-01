@@ -11,11 +11,11 @@ import com.divergentsl.acquirer.controller.AcquirerController;
 @SpringBootTest
 class AcquirerApplicationTests {
 
-    @Autowired
-    private AcquirerController acquirerController;
+	@Autowired
+	private AcquirerController acquirerController;
 
-    @Test
-    void contextLoads() {
-        assertNotNull(acquirerController);
-    }
+	@Test
+	void contextLoads() {
+		assertNotNull(acquirerController);
+	}
 }
