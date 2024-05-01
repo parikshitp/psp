@@ -47,13 +47,12 @@ public class PspServiceImpl implements PspService {
 		String transactionId = TransactionUtil.generateTransactionId(cardDetails.getMerchantId(),
 				cardDetails.getCardNumber());
 
+		//setting transaction id
 		transactionRequest.setTransactionId(transactionId);
 
 		transactionResponse = updateTransactionRecord(transactionRequest, transactionId);
 
 		log.info("Inside Psp paymentService method processPayment: {}", transactionResponse);
-
-		transactionResponse.setTransactionId(transactionId);
 
 		return transactionResponse;
 	}
@@ -66,6 +65,7 @@ public class PspServiceImpl implements PspService {
 	 * @return
 	 */
 	private TransactionResponse updateTransactionRecord(TransactionRequest transactionRequest, String transactionId) {
+		log.info("Inside PspServiceImpl updateTransactionRecord",transactionRequest,transactionId);
 		TransactionResponse transactionResponse;
 		transactionRepo.save(transactionRequest);
 
