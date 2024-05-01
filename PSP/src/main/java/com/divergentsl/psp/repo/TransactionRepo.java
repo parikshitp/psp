@@ -1,4 +1,4 @@
-package com.divergentsl.psp.service;
+package com.divergentsl.psp.repo;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 

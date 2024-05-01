@@ -18,7 +18,7 @@
 The PSP application includes the following controller:
 
 **PspController** 
-- **Endpoint:** `/api/v1/psp` 
+- **Endpoint:** `/api/v1/process_payment` 
 - **Description:** This controller handles payment processing requests. It receives transaction details as input and returns a response containing the transaction status and message. 
 
 ## Services 
@@ -26,6 +26,34 @@ The PSP application includes the following service:
 
 **PspService** 
 - **Description:** This service contains the business logic for processing payments. It validates card details, generates transaction IDs, updates transaction records, and interacts with external systems for transaction processing. 
+
+#### TransactionUtil Class
+- **Method:** `isValidCardLuhansAlgorithm(String cardNumber)`
+  - **Description:** This method validates a credit card number using Luhn's algorithm. It checks if the card number is valid based on its length, format, and Luhn's algorithm.
+  - **Parameters:** 
+    - `cardNumber` - The credit card number to validate.
+  - **Returns:** 
+    - `true` if the card number is valid, `false` otherwise.
+  - **Example Usage:** 
+    ```java
+    public static boolean isValidCardLuhansAlgorithm(String cardNumber) {
+        // Added provided logic here
+    }
+    ```
+  - **Explanation:**
+    This method implements Luhn's algorithm to validate credit card numbers. Luhn's algorithm works by summing up the digits of the card number in a specific way and checking if the resulting sum is divisible by 10. If it is, the card number is considered valid. Otherwise, it's invalid. The provided comments demonstrate examples of valid and invalid card numbers based on their formats and lengths. The method cleans the input card number by removing any non-digit characters, checks if the length of the cleaned number is within the valid range (13-19 digits), ensures that the card number contains only digits, and then performs the Luhn's algorithm calculation. Finally, it returns `true` if the calculated sum is divisible by 10, indicating a valid card number, and `false` otherwise.
+
+#### Sample Inputs For Card Validation:
+- '    1234567890123           VALID
+- '    1234-5678-9012-3456     VALID
+- '    1234 5678 9012 3456     VALID
+- '    12345678901234567    VALID
+- '    12345                    INVALID
+- '    1234                     INVALID
+- '    123456789012345678901   INVALID
+- '    1234567890abcd          INVALID
+- '    12345678ee13456789     INVALID
+
 
 ## Repositories 
 The PSP application includes the following repository:

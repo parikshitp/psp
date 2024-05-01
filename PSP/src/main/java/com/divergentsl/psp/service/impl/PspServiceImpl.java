@@ -10,8 +10,8 @@ import com.divergentsl.psp.domain.CardDetails;
 import com.divergentsl.psp.domain.TransactionRequest;
 import com.divergentsl.psp.domain.TransactionResponse;
 import com.divergentsl.psp.exception.EntityNotFoundException;
+import com.divergentsl.psp.repo.TransactionRepo;
 import com.divergentsl.psp.service.PspService;
-import com.divergentsl.psp.service.TransactionRepo;
 import com.divergentsl.psp.util.RestClient;
 import com.divergentsl.psp.util.TransactionUtil;
 
@@ -53,22 +53,13 @@ public class PspServiceImpl implements PspService {
 				cardDetails.getCardNumber());
 
 		transactionRequest.setTransactionId(transactionId);
-		transactionResponse.setTransactionId(transactionId);
 		
-		boolean isValidCardNumber = TransactionUtil.isValidCardLuhansAlgorithm(cardDetails.getCardNumber());
-
-		boolean approved = TransactionUtil.isApproved(cardDetails.getCardNumber());
-		if (!approved || !isValidCardNumber) {
-			transactionResponse.setStatus(TransactionStatus.DENIED.name());
-			transactionResponse.setMessage(
-					messageSource.getMessage("error.invalid.card.details", new Object[] {}, Locale.getDefault()));
-			log.info("Inside Psp paymentService method processPayment: {}", transactionResponse);
-			return transactionResponse;
-		}
 
 		transactionResponse = updateTransactionRecord(transactionRequest, transactionId);
 
 		log.info("Inside Psp paymentService method processPayment: {}", transactionResponse);
+		
+		transactionResponse.setTransactionId(transactionId);
 
 		return transactionResponse;
 	}

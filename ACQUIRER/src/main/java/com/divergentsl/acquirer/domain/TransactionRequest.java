@@ -1,5 +1,6 @@
 package com.divergentsl.acquirer.domain;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class TransactionRequest {
 
 	private String transactionId;
 
+	@Valid
 	@NotNull
 	private CardDetails cardDetails;
 

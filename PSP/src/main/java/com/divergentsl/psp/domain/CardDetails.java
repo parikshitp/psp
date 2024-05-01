@@ -2,44 +2,44 @@ package com.divergentsl.psp.domain;
 
 import java.util.Objects;
 
-import com.divergentsl.psp.exception.InvalidExpiryDateException;
-import com.divergentsl.psp.util.DateUtil;
+import com.divergentsl.psp.annotation.ValidCardNumber;
+import com.divergentsl.psp.annotation.ValidExpiryDate;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class CardDetails {
 
-	@NonNull
-	private String cardNumber;
+	@ValidCardNumber
+	@NotBlank(message = "Card Number can't be null or blank")
+    private String cardNumber;
 
-	@NonNull
-	private String expiryDate; // Assuming format "MM/YY"
+	@ValidExpiryDate
+    @NotBlank(message = "Expiry Date can't be null or blank")
+    private String expiryDate; // Assuming format "MM/YY"
 
-	@NonNull
-	private String cvv;
+    @NotBlank(message = "CVV can't be null or blank")
+    private String cvv;
 
-	private double amount;
+    @NotNull(message = "Amount can't be null")
+    @Min(value = 1, message = "Amount must be greater than or equal to 1")
+    private Double amount;
 
-	@NonNull
-	private String currency;
+    @NotBlank(message = "Currency can't be null or blank")
+    private String currency;
 
-	@NonNull
-	private String merchantId;
-
-	public void setExpiryDate(String expiryDate) {
-		if (!DateUtil.isValidExpiryDateFormat(expiryDate)) {
-			throw new InvalidExpiryDateException("error.invalid.expiry.date", new Object[] {});
-		}
-		this.expiryDate = expiryDate;
-	}
+    @NotBlank(message = "Merchant ID can't be null or blank")
+    private String merchantId;
 
 	@Override
 	public String toString() {

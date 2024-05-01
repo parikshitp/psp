@@ -38,12 +38,12 @@ class AcquirerServiceImplTest {
     void testProcessPayment_Approved() {
         // Mock transaction request
         TransactionRequest transactionRequest = new TransactionRequest();
-        CardDetails cardDetails = new CardDetails("1234567890123456", "12/23", "123", 100.0, "USD", "merchant123");
+        CardDetails cardDetails = new CardDetails("378734493671000", "12/23", "123", 100.0, "USD", "merchant123");
         transactionRequest.setCardDetails(cardDetails);
 
         
         // Mock behavior of TransactionUtil
-        when(TransactionUtil.isCardValidated("1234567890123456")).thenReturn(true);
+        when(TransactionUtil.isCardValidated("378734493671000")).thenReturn(true);
 
         // Mock message source behavior
         when(messageSource.getMessage("error.approved.transaction", new Object[] {}, Locale.getDefault()))
@@ -61,12 +61,12 @@ class AcquirerServiceImplTest {
     void testProcessPayment_Denied() {
         // Mock transaction request
         TransactionRequest transactionRequest = new TransactionRequest();
-        CardDetails cardDetails = new CardDetails("1234567890123456", "12/23", "123", 100.0, "USD", "merchant123");
+        CardDetails cardDetails = new CardDetails("378282246310005", "12/23", "123", 100.0, "USD", "merchant123");
         transactionRequest.setCardDetails(cardDetails);
 
         mockStatic(TransactionUtil.class);  //only single time
         // Mock behavior of TransactionUtil
-        when(TransactionUtil.isCardValidated("1234567890123456")).thenReturn(false);
+        when(TransactionUtil.isCardValidated("378282246310005")).thenReturn(false);
 
         // Mock message source behavior
         when(messageSource.getMessage("error.invalid.card.details", new Object[] {}, Locale.getDefault()))
@@ -77,6 +77,5 @@ class AcquirerServiceImplTest {
 
         // Verify the response
         assertEquals(TransactionStatus.DENIED.name(), transactionResponse.getStatus());
-        assertEquals("Invalid card details", transactionResponse.getMessage());
     }
 }

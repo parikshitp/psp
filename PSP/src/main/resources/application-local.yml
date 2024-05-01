@@ -1,14 +1,17 @@
 server:
   port: 8080
-
+  
 spring:
   application:
     name: PSP
     
   messages:
     basename: i18n/messages
-
+    
+  docker:
+    compose:
+      enabled: false
 
 acquirer:
   base:
-    url: http://acquirer:8085/api/v1/acquirer
+    url: http://localhost:8085/api/v1/acquirer

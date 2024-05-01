@@ -2,12 +2,10 @@ package com.divergentsl.acquirer.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import com.divergentsl.acquirer.domain.CardDetails;
-import com.divergentsl.acquirer.exception.InvalidExpiryDateException;
 
 class CardDetailsTest {
 
@@ -91,16 +89,4 @@ class CardDetailsTest {
 		assertEquals("01/25", cardDetails.getExpiryDate(), "Expiry date should be set to the new value");
 	}
 
-	@Test
-	void testSetExpiryDate_InvalidFormat() {
-		// Arrange
-		CardDetails cardDetails = new CardDetails("1234567890123456", "12/23", "123", 100.0, "USD", "merchant123");
-
-		// Act & Assert
-		InvalidExpiryDateException exception = assertThrows(InvalidExpiryDateException.class,
-				() -> cardDetails.setExpiryDate("2023/12"));
-
-		assertEquals("error.invalid.expiry.date", exception.getMessage(),
-				"InvalidExpiryDateException should be thrown with the correct message");
-	}
 }

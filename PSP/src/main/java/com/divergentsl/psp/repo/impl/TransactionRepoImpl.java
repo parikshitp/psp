@@ -1,11 +1,11 @@
-package com.divergentsl.psp.service.impl;
+package com.divergentsl.psp.repo.impl;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import org.springframework.stereotype.Repository;
 
 import com.divergentsl.psp.domain.TransactionRequest;
-import com.divergentsl.psp.service.TransactionRepo;
+import com.divergentsl.psp.repo.TransactionRepo;
 
 @Repository
 public class TransactionRepoImpl implements TransactionRepo {

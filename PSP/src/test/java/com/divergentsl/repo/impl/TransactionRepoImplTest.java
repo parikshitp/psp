@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.divergentsl.psp.domain.TransactionRequest;
-import com.divergentsl.psp.service.impl.TransactionRepoImpl;
+import com.divergentsl.psp.repo.impl.TransactionRepoImpl;
 
 public class TransactionRepoImplTest {
 

@@ -1,18 +1,19 @@
-package com.divergentsl.psp.util;
+package com.divergentsl.acquirer.annotation.impl;
 
 import java.util.Calendar;
 
-public class DateUtil {
-	private DateUtil() {
+import com.divergentsl.acquirer.annotation.ValidExpiryDate;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+public class ExpiryDateValidator implements ConstraintValidator<ValidExpiryDate, String> {
+	@Override
+	public void initialize(ValidExpiryDate constraintAnnotation) {
 	}
 
-	/**
-	 * it is used to validate expiry date format
-	 * 
-	 * @param expiryDate
-	 * @return boolean values
-	 */
-	public static boolean isValidExpiryDateFormat(String expiryDate) {
+	@Override
+	public boolean isValid(String expiryDate, ConstraintValidatorContext constraintValidatorContext) {
 		// Check if expiryDate is not null and has the correct length
 		if (expiryDate == null || expiryDate.length() != 5) {
 			return false;
@@ -37,5 +38,4 @@ public class DateUtil {
 			return false; // Parsing error, not numeric
 		}
 	}
-
 }

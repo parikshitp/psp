@@ -10,11 +10,12 @@ import com.divergentsl.psp.domain.TransactionRequest;
 import com.divergentsl.psp.domain.TransactionResponse;
 import com.divergentsl.psp.service.PspService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(UriConstants.API + UriConstants.V1 + UriConstants.PSP)
+@RequestMapping(UriConstants.API + UriConstants.V1)
 public class PspController {
 
 	private final PspService pspService;
@@ -29,8 +30,8 @@ public class PspController {
 	 * @param transactionRequest = it is used to take transaction details
 	 * @return TransactionResponse = it contains message and status
 	 */
-	@PostMapping
-	public TransactionResponse processPayment(@RequestBody TransactionRequest transactionRequest) {
+	@PostMapping(UriConstants.PROCESS_PAYMENT)
+	public TransactionResponse processPayment(@RequestBody @Valid TransactionRequest transactionRequest) {
 		log.info("Inside Psp controller method processPayment: {}", transactionRequest);
 
 		TransactionResponse transactionResponse = pspService.processPayment(transactionRequest);

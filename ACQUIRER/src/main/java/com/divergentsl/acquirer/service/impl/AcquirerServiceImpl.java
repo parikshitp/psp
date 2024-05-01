@@ -41,10 +41,11 @@ public class AcquirerServiceImpl implements AcquirerService {
 		// Simulate interaction with mock acquirer
 		boolean approved = TransactionUtil.isCardValidated(cardDetails.getCardNumber());
 
+		transactionResponse.setTransactionId(transactionRequest.getTransactionId());
 		transactionResponse.setStatus(approved ? TransactionStatus.APPROVED.name() : TransactionStatus.DENIED.name());
 		transactionResponse.setMessage(
 				approved ? messageSource.getMessage("error.approved.transaction", new Object[] {}, Locale.getDefault())
-						: messageSource.getMessage("error.invalid.card.details", new Object[] {}, Locale.getDefault()));
+						: messageSource.getMessage("error.denied.transaction", new Object[] {}, Locale.getDefault()));
 
 		log.info("Inside AcquirerService method processPayment: {}", transactionResponse);
 		return transactionResponse;

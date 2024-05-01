@@ -39,7 +39,7 @@ public class RestClient {
 		log.info("Inside Psp RestTemplate method processTransaction: {}", transactionRequest);
 
 		String acquirerUrl = acquirerBaseUrl;
-		HttpHeaders headers = new HttpHeaders();
+		HttpHeaders headers = new HttpHeaders(); 
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<TransactionRequest> requestEntity = new HttpEntity<>(transactionRequest, headers);
 		ResponseEntity<TransactionResponse> responseEntity = restTemplate.exchange(acquirerUrl, HttpMethod.POST,

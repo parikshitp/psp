@@ -20,15 +20,12 @@ import com.divergentsl.acquirer.domain.ApiError;
 import com.divergentsl.acquirer.domain.ApiSubError;
 import com.divergentsl.acquirer.domain.ApiValidationError;
 import com.divergentsl.acquirer.exception.GenericException;
-import com.divergentsl.acquirer.exception.InvalidExpiryDateException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-	private static final String EXCEPTION_OCCURED = "Exception Occured";
 
 	private MessageSource messageSource;
 
@@ -45,23 +42,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(GenericException.class)
 	public ResponseEntity<ApiError> handleGenericException(Locale locale, GenericException ex) {
+		log.error("Inside Global Excepiton Handler handleGenericException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST,
 				messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale), ex), HttpStatus.BAD_REQUEST);
-	}
-
-	/**
-	 * Handle entity already exist exception
-	 * 
-	 * @param locale
-	 * @param ex
-	 * @return ApiError
-	 */
-	@ExceptionHandler(InvalidExpiryDateException.class)
-	public ResponseEntity<ApiError> handleInvalidExpiryDateException(Locale locale, InvalidExpiryDateException ex) {
-		return new ResponseEntity<>(
-				new ApiError(HttpStatus.EXPECTATION_FAILED,
-						messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale), ex),
-				HttpStatus.EXPECTATION_FAILED);
 	}
 
 	/**
@@ -72,6 +55,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(NoResourceFoundException.class)
 	public ResponseEntity<ApiError> handleNoResourceFoundException(NoResourceFoundException ex) {
+		log.error("Inside Global Excepiton Handler handleNoResourceFoundException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.NOT_FOUND, ex.getMessage(), ex), HttpStatus.NOT_FOUND);
 	}
 
@@ -83,6 +67,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+		log.error("Inside Global Excepiton Handler handleMethodArgumentNotValidException method: {}",ex);
 		BindingResult bindingResult = ex.getBindingResult();
 		List<ApiSubError> subErrors = new ArrayList<>();
 		bindingResult.getAllErrors().forEach(oe -> subErrors.add(new ApiValidationError<Object[]>(oe.getObjectName(),
@@ -99,6 +84,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ApiError> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		log.error("Inside Global Excepiton Handler handleHttpMessageNotReadableException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex), HttpStatus.BAD_REQUEST);
 	}
 
@@ -110,6 +96,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	public ResponseEntity<ApiError> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
+		log.error("Inside Global Excepiton Handler handleHttpMediaTypeNotSupportedException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex.getMessage(), ex),
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	}
@@ -123,6 +110,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<ApiError> handleHttpRequestMethodNotSupportedException(
 			HttpRequestMethodNotSupportedException ex) {
+		log.error("Inside Global Excepiton Handler handleHttpRequestMethodNotSupportedException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.UNSUPPORTED_MEDIA_TYPE, ex.getMessage(), ex),
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 	}
@@ -135,7 +123,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiError> handleException(Exception ex) {
-		log.error(EXCEPTION_OCCURED, ex);
+		log.error("Inside Global Excepiton Handler handleException method: {}",ex);
 		return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}

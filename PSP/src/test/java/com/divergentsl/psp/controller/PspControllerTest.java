@@ -28,31 +28,25 @@ public class PspControllerTest {
     @MockBean
     private PspService pspService;
 
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//    }
-
     @Test
     public void testProcessPayment() throws Exception {
         // Prepare test data
         TransactionRequest request = new TransactionRequest();
-        request.setTransactionId("123");
-        request.setCardDetails(new CardDetails("1234567890123456", "12/25", "123", 100.0, "USD", "merchant123"));
+        request.setCardDetails(new CardDetails("378734493671000", "12/25", "123", 100.0, "USD", "merchant123"));
 
-        TransactionResponse expectedResponse = new TransactionResponse("123", "SUCCESS", "Payment processed successfully");
+        TransactionResponse expectedResponse = new TransactionResponse("657d5d68-82ba-499f-9023-3389b62a426f", "APPROVED", "Transaction Approved");
 
         // Mock the service method
         when(pspService.processPayment(any(TransactionRequest.class))).thenReturn(expectedResponse);
 
         // Perform the POST request to the controller
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/psp")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/process_payment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(request)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.transactionId").value("123"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("SUCCESS"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Payment processed successfully"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.transactionId").value("657d5d68-82ba-499f-9023-3389b62a426f"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("APPROVED"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Transaction Approved"));
 
         // Verify that the service method was called with the correct argument
         verify(pspService).processPayment(any(TransactionRequest.class));

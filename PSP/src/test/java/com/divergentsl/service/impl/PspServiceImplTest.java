@@ -15,7 +15,7 @@ import org.springframework.context.MessageSource;
 import com.divergentsl.psp.domain.CardDetails;
 import com.divergentsl.psp.domain.TransactionRequest;
 import com.divergentsl.psp.domain.TransactionResponse;
-import com.divergentsl.psp.service.TransactionRepo;
+import com.divergentsl.psp.repo.TransactionRepo;
 import com.divergentsl.psp.service.impl.PspServiceImpl;
 import com.divergentsl.psp.util.RestClient;
 

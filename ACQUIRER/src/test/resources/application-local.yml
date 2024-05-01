@@ -4,7 +4,10 @@ server:
 spring:
   application:
     name: Acquirer
-    
+        
   messages:
     basename: i18n/messages
-    
+
+  docker:
+    compose:
+      enabled: false

@@ -10,7 +10,7 @@ class TransactionUtilTest {
     @Test
     void testIsCardValidated_EvenLastDigit() {
         // Arrange
-        String cardNumber = "1234567890123456"; // Even last digit
+        String cardNumber = "378734493671000"; // Even last digit
 
         // Act
         boolean result = TransactionUtil.isCardValidated(cardNumber);
@@ -22,7 +22,7 @@ class TransactionUtilTest {
     @Test
     void testIsCardValidated_OddLastDigit() {
         // Arrange
-        String cardNumber = "1234567890123457"; // Odd last digit
+        String cardNumber = "378282246310005"; // Odd last digit
 
         // Act
         boolean result = TransactionUtil.isCardValidated(cardNumber);
